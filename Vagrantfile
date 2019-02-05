@@ -78,6 +78,14 @@ $configureMaster = <<-SCRIPT
     cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
     chown $(id -u vagrant):$(id -g vagrant) /home/vagrant/.kube/config
 
+    # Write bash completion code to a file and source if from .bashrc
+    kubectl completion bash > /home/vagrant/.kube/completion.bash.inc
+    chown $(id -u vagrant):$(id -g vagrant) /home/vagrant/.kube/completion.bash.inc
+    printf "
+    # Kubectl shell completion
+    source '/home/vagrant/.kube/completion.bash.inc'
+    " >> /home/vagrant/.bashrc
+
     # install Calico pod network addon
     export KUBECONFIG=/etc/kubernetes/admin.conf
     kubectl apply -f https://raw.githubusercontent.com/loxley/kubernetes-cluster/master/calico/rbac-kdd.yaml
