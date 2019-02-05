@@ -5,8 +5,8 @@ servers = [
     {
         :name => "k8s-head",
         :type => "master",
-        :box => "ubuntu/xenial64",
-        :box_version => "20190204.3.0",
+        :box => "ubuntu/bionic64",
+        :box_version => "20190204.0.0",
         :eth1 => "192.168.205.10",
         :mem => "2048",
         :cpu => "2"
@@ -14,8 +14,8 @@ servers = [
     {
         :name => "k8s-node-1",
         :type => "node",
-        :box => "ubuntu/xenial64",
-        :box_version => "20190204.3.0",
+        :box => "ubuntu/bionic64",
+        :box_version => "20190204.0.0",
         :eth1 => "192.168.205.11",
         :mem => "2048",
         :cpu => "2"
@@ -23,8 +23,8 @@ servers = [
     {
         :name => "k8s-node-2",
         :type => "node",
-        :box => "ubuntu/xenial64",
-        :box_version => "20190204.3.0",
+        :box => "ubuntu/bionic64",
+        :box_version => "20190204.0.0",
         :eth1 => "192.168.205.12",
         :mem => "2048",
         :cpu => "2"
@@ -67,7 +67,7 @@ SCRIPT
 $configureMaster = <<-SCRIPT
     echo "This is master"
     # ip of this box
-    IP_ADDR=`ifconfig enp0s8 | grep Mask | awk '{print $2}'| cut -f2 -d:`
+    IP_ADDR=`ifconfig enp0s8 | grep netmask | awk '{print $2}'`
 
     # install k8s master
     HOST_NAME=$(hostname -s)
